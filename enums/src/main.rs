@@ -47,6 +47,34 @@ fn main() {
     // let y: Option<i8> = Some(5);
 
     // let sum = x + y;
+
+    let config_max = Some(3u8);
+    match config_max {
+        Some(max) => println!("The maximum is configured to be {}", max),
+        _ => (),
+    }
+
+    #[derive(Debug)]
+    enum UsState {
+        Alabama,
+        Alaska,
+        // --snip--
+    }
+
+    enum Coin {
+        Penny,
+        Nickel,
+        Dime,
+        Quarter(UsState),
+    }
+
+    let coin = Coin::Penny;
+    let mut count = 0;
+    if let Coin::Quarter(state) = coin {
+        println!("State quarter from {:?}!", state);
+    } else {
+        count += 1;
+    }
 }
 
 fn route(ip_kind: IpAddrKind) {}
