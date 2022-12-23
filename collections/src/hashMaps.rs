@@ -42,4 +42,30 @@ pub fn hashMap() {
         *count += 1;
     }
     println!("{:?}", map);
+
+    println!("---------------- exercises");
+    let mut numbers = [37, 225, 8, 0, 9, 25, 168, 500, 15, 98, 100, 32, 32];
+
+    fn median(numbers: &mut [i32]) -> i32 {
+        numbers.sort();
+        let median = numbers.len() / 2;
+        numbers[median]
+    }
+
+    fn mode(numbers: &[i32]) -> i32 {
+        let mut occurrences = HashMap::new();
+
+        for &value in numbers {
+            *occurrences.entry(value).or_insert(0) += 1;
+        }
+
+        occurrences
+            .into_iter()
+            .max_by_key(|&(_, count)| count)
+            .map(|(val, _)| val)
+            .expect("cannot compute mode of zero numbers")
+    }
+
+    println!("{}", mode(&numbers));
+    println!("{}", median(&mut numbers));
 }
