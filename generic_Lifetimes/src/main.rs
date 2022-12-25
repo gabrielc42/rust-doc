@@ -1,3 +1,8 @@
+struct Point<T> {
+    x: T,
+    y: T,
+}
+
 fn largest<T>(list: &[T]) -> &T {
     let mut largest = &list[0];
 
@@ -20,4 +25,7 @@ fn main() {
 
     let result = largest(&char_list);
     println!("The largest char is {}", result);
+
+    let integer = Point { x: 5, y: 10 };
+    let float = Point { x: 1.0, y: 4.0 };
 }
