@@ -1,0 +1,1 @@
+C:\Users\Gabriel\Desktop\reposit\rust-doc\collections\target\debug\collections.exe: C:\Users\Gabriel\Desktop\reposit\rust-doc\collections\src\hashMaps.rs C:\Users\Gabriel\Desktop\reposit\rust-doc\collections\src\main.rs C:\Users\Gabriel\Desktop\reposit\rust-doc\collections\src\string.rs C:\Users\Gabriel\Desktop\reposit\rust-doc\collections\src\vec.rs
