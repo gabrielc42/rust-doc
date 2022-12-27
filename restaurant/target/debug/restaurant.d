@@ -1,1 +1,0 @@
-C:\Users\Gabriel\Desktop\reposit\rust-doc\restaurant\target\debug\restaurant.exe: C:\Users\Gabriel\Desktop\reposit\rust-doc\restaurant\src\lib.rs C:\Users\Gabriel\Desktop\reposit\rust-doc\restaurant\src\main.rs
