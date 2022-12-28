@@ -1,3 +1,5 @@
+use generic_Lifetimes::Tweet;
+
 struct Point<X1, Y1> {
     x: X1,
     y: Y1,
@@ -24,7 +26,39 @@ fn largest<T>(list: &[T]) -> &T {
     largest
 }
 
+use generic_Lifetimes::Summary;
+
 fn main() {
+    let tweet = Tweet {
+        username: String::from("horse_ebooks"),
+        content: String::from("of course, as you probably already know, people"),
+        reply: false,
+        retweet: false,
+    };
+
+    println!("1 new tweet: {}", tweet.summarize());
+
+    fn returns_summarizable(switch: bool) -> impl Summary {
+        if switch {
+            NewsArticle {
+                headline: String::from("Penguins win the Stanley Cup Championship!"),
+                location: String::from("Pittsburgh, PA, USA"),
+                author: String::from("Iceburgh"),
+                content: String::from(
+                    "The Pittsburgh Penguins once again are the best \
+                     hockey team in the NHL.",
+                ),
+            }
+        } else {
+            Tweet {
+                username: String::from("horse_ebooks"),
+                content: String::from("of course, as you probably already know, people"),
+                reply: false,
+                retweet: false,
+            }
+        }
+    }
+
     let number_list = vec![34, 50, 25, 100, 65];
 
     let result = largest(&number_list);
