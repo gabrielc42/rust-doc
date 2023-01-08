@@ -95,13 +95,17 @@ mod tests {
     }
 
     #[test]
-    fn it_works() -> Result<(), String> {
+    fn it_works_again() -> Result<(), String> {
         if 2 + 2 == 4 {
             Ok(())
         } else {
             Err(String::from("two plus two does not equal four"))
         }
     }
+    // You can’t use the #[should_panic] annotation on tests that use Result<T, E>.
+    // To assert that an operation returns an Err variant,
+    // don’t use the question mark operator on the Result<T, E> value.
+    // Instead, use assert!(value.is_err()).
 }
 
 pub struct Guess {
