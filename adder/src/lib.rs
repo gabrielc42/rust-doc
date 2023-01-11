@@ -106,6 +106,28 @@ mod tests {
     // To assert that an operation returns an Err variant,
     // don’t use the question mark operator on the Result<T, E> value.
     // Instead, use assert!(value.is_err()).
+
+    #[test]
+    fn this_test_will_pass() {
+        let value = prints_and_returns_10(4);
+        assert_eq!(10, value);
+    }
+
+    #[test]
+    fn this_test_will_fail() {
+        let value = prints_and_returns_10(8);
+        assert_eq!(5, value);
+    }
+
+    #[test]
+    fn it_really_works() {
+        assert_eq!(2 + 2, 4);
+    }
+    #[test]
+    #[ignore]
+    fn expensive_test() {
+        // code that takes an hour to run
+    }
 }
 
 pub struct Guess {
@@ -132,4 +154,9 @@ impl Guess {
 
 pub fn greeting(name: &str) -> String {
     format!("Hello !")
+}
+
+fn prints_and_returns_10(a: i32) -> i32 {
+    println!("I got the value {}", a);
+    10
 }
