@@ -27,23 +27,54 @@ fn hello(name: &str) {
     println!("Hello, {name}!");
 }
 
+struct CustomSmartPointer {
+    data: String,
+}
+
+impl Drop for CustomSmartPointer {
+    fn drop(&mut self) {
+        println!("Dropping CustomSmartPointer with data `{}`!", self.data);
+    }
+}
+
 fn main() {
-    let list = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
+    // box<t> and deref trait
+    // let list = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
 
-    let b = Box::new(5);
-    println!("b = {}", b);
+    // let b = Box::new(5);
+    // println!("b = {}", b);
 
-    let x = 5;
-    let y = MyBox::new(x);
+    // let x = 5;
+    // let y = MyBox::new(x);
 
-    assert_eq!(5, x);
-    assert_eq!(5, *y);
+    // assert_eq!(5, x);
+    // assert_eq!(5, *y);
 
-    let m = MyBox::new(String::from("Rust"));
-    hello(&m);
+    // let m = MyBox::new(String::from("Rust"));
+    // hello(&m);
 
-    let m = MyBox::new(String::from("Rust"));
-    hello(&(*m)[..]);
+    // let m = MyBox::new(String::from("Rust"));
+    // hello(&(*m)[..]);
+
+    // drop trait
+
+    // let c = CustomSmartPointer {
+    //     data: String::from("my stuff"),
+    // };
+    // let d = CustomSmartPointer {
+    //     data: String::from("other stuff"),
+    // };
+    // println!("CustomSmartPointers created.");
+
+    let c = CustomSmartPointer {
+        data: String::from("some data"),
+    };
+    println!("CustomSmartPointer created.");
+    // c.drop(); // destructor analogous to constructor (cleans up an instance)
+    // double free error
+    // rather,
+    drop(c);
+    println!("CustomSmartPointer dropped before the end of main.");
 }
 
 //Rust does deref coercion when it finds types and trait implementations in three cases:
