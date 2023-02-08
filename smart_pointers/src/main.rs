@@ -9,10 +9,10 @@
 // each Cons variant will now hold a value and an Rc<T>
 // pointing to a List
 
-enum List {
-    Cons(i32, Rc<List>),
-    Nil,
-}
+// enum List {
+//     Cons(i32, Rc<List>),
+//     Nil,
+// }
 
 use crate::List::{Cons, Nil};
 use std::rc::Rc;
@@ -48,6 +48,16 @@ impl Drop for CustomSmartPointer {
         println!("Dropping CustomSmartPointer with data `{}`!", self.data);
     }
 }
+
+#[derive(Debug)]
+enum List {
+    Cons(Rc<RefCell<i32>>, Rc<List>),
+    Nil,
+}
+
+// use crate::List::{Cons, Nil};
+use std::cell::RefCell;
+// use std::rc::Rc;
 
 fn main() {
     // box<t> and deref trait
@@ -88,24 +98,38 @@ fn main() {
     // println!("CustomSmartPointer dropped before the end of main.");
 
     // Rc<T>
-    let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
-    let b = Cons(3, Rc::clone(&a));
-    let c = Cons(4, Rc::clone(&a));
+    // let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+    // let b = Cons(3, Rc::clone(&a));
+    // let c = Cons(4, Rc::clone(&a));
 
-    let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
-    println!("count after creating a = {}", Rc::strong_count(&a));
-    let b = Cons(3, Rc::clone(&a));
-    println!("count after creating b = {}", Rc::strong_count(&a));
-    {
-        let c = Cons(4, Rc::clone(&a));
-        println!("count after creating c = {}", Rc::strong_count(&a));
-    }
-    println!("count after c goes out of scope = {}", Rc::strong_count(&a));
+    // let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+    // println!("count after creating a = {}", Rc::strong_count(&a));
+    // let b = Cons(3, Rc::clone(&a));
+    // println!("count after creating b = {}", Rc::strong_count(&a));
+    // {
+    //     let c = Cons(4, Rc::clone(&a));
+    //     println!("count after creating c = {}", Rc::strong_count(&a));
+    // }
+    // println!("count after c goes out of scope = {}", Rc::strong_count(&a));
 
     // Via immutable references, Rc<T> allows you to share data between multiple parts of your program
     // for reading only. If Rc<T> allowed you to have multiple mutable references too, you might violate one
     // of the borrowing rules discussed in Chapter 4: multiple mutable borrows to
     // the same place can cause data races and inconsistencies
+
+    //multiple owners of mutable data by combining Rc<T> and RefCell<T>
+    let value = Rc::new(RefCell::new(5));
+
+    let a = Rc::new(Cons(Rc::clone(&value), Rc::new(Nil)));
+
+    let b = Cons(Rc::new(RefCell::new(3)), Rc::clone(&a));
+    let c = Cons(Rc::new(RefCell::new(4)), Rc::clone(&a));
+
+    *value.borrow_mut() += 10;
+
+    println!("a after = {:?}", a);
+    println!("b after = {:?}", b);
+    println!("c after = {:?}", c);
 }
 
 //Rust does deref coercion when it finds types and trait implementations in three cases:
@@ -117,3 +141,10 @@ fn main() {
 // Converting an immutable reference to
 // a mutable reference would require that the initial immutable reference is
 // the only immutable reference to that data, but the borrowing rules don’t guarantee that
+
+// Rc<T> enables multiple owners of the same data;
+// Box<T> and RefCell<T> have single owners.
+// Box<T> allows immutable or mutable borrows checked at compile time;
+// Rc<T> allows only immutable borrows checked at compile time;
+// RefCell<T> allows immutable or mutable borrows checked at runtime.
+// Because RefCell<T> allows mutable borrows checked at runtime, you can mutate the value inside the RefCell<T> even when the RefCell<T> is immutable.
