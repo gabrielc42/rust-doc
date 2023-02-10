@@ -1,6 +1,7 @@
 use std::sync::Mutex;
 
 pub fn mutex() {
+    // Mutex<T> is a smart pointer
     let m = Mutex::new(5);
 
     {
