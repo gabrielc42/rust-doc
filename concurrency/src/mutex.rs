@@ -1,7 +1,13 @@
-use std::{rc::Rc, sync::Mutex, thread};
+use std::{
+    //rc::Rc,
+    sync::{Arc, Mutex},
+    thread,
+};
 
 pub fn mutex() {
     // Mutex<T> is a smart pointer
+    // Mutex<T> provides interior mutability
+    // similar to RefCell<T> in Smart Pointers (ch 15)
     let m = Mutex::new(5);
 
     {
@@ -11,11 +17,11 @@ pub fn mutex() {
 
     println!("m = {:?}", m);
 
-    let counter = Rc::new(Mutex::new(0));
+    let counter = Arc::new(Mutex::new(0));
     let mut handles = vec![];
 
     for _ in 0..10 {
-        let counter = Rc::clone(&counter);
+        let counter = Arc::clone(&counter);
         let handle = thread::spawn(move || {
             let mut num = counter.lock().unwrap();
 
