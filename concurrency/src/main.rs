@@ -1,6 +1,8 @@
 use std::sync::mpsc;
 use std::thread;
 use std::time::Duration;
+mod mutex;
+use crate::mutex::mutex;
 
 fn main() {
     let handle = thread::spawn(|| {
@@ -78,4 +80,6 @@ fn main() {
     for received in rx {
         println!("Got: {}", received);
     }
+
+    mutex();
 }
