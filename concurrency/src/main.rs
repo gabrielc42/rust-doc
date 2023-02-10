@@ -38,6 +38,8 @@ fn main() {
     thread::spawn(move || {
         let val = String::from("hi");
         tx.send(val).unwrap();
+        // println!("val is {}", val); // val has been sent down channel via tx.send
+        // will not compile
     });
 
     let received = rx.recv().unwrap();
