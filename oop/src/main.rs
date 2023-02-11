@@ -1,4 +1,4 @@
-// use crate::blog::blog;
+use crate::blog::blog;
 mod blog;
 // use oop::Draw;
 // use oop::{Button, Screen};
@@ -15,13 +15,13 @@ struct SelectBox {
 // }
 
 fn main() {
-    let mut post = Post::new();
+    // let mut post = Post::new();
 
-    post.add_text("I ate a salad for lunch today");
-    let post = post.request_review();
-    let post = post.approve();
+    // post.add_text("I ate a salad for lunch today");
+    // let post = post.request_review();
+    // let post = post.approve();
 
-    assert_eq!("I ate a salad for lunch today", post.content());
+    // assert_eq!("I ate a salad for lunch today", post.content());
 
     // let screen = Screen {
     //     components: vec![Box::new(String::from("Hi"))], // passing something wrong
@@ -49,7 +49,7 @@ fn main() {
     // };
     // screen.run();
 
-    // blog()
+    blog()
 }
 
 // With the state pattern,
