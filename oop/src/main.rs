@@ -1,5 +1,8 @@
+use crate::blog::blog;
+mod blog;
 use oop::Draw;
 use oop::{Button, Screen};
+
 struct SelectBox {
     width: u32,
     height: u32,
@@ -36,4 +39,6 @@ fn main() {
         ],
     };
     screen.run();
+
+    blog()
 }
