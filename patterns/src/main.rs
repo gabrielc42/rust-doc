@@ -42,6 +42,16 @@ fn main() {
     // function params
     let point = (2, 3);
     print_coordinates(&point);
+
+    // let Some(x) = some_option_value; // doesn't compile, pattern is refutable (may be a None value)
+    // can instead type 'if let'
+    // if let Some(x) = some_option_value {
+    //     println!("{}", x);
+    // }
+    // however,
+    if let x = 5 {
+        println! {"{}", x};
+    }; // is refutable and suggests 'let' only
 }
 
 fn print_coordinates(&(x, y): &(i32, i32)) {
