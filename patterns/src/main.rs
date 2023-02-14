@@ -1,3 +1,5 @@
+#![allow(dead_code, unused_variables)]
+
 fn main() {
     // if let, else if, else if let, else
     let favorite_color: Option<&str> = None;
@@ -118,6 +120,17 @@ fn main() {
             println!("On neither axis: ({x}, {y})");
         }
     }
+
+    // enums
+
+    let mut msg = Message::ChangeColor(0, 160, 255);
+    match_msg(msg);
+    msg = Message::Quit;
+    match_msg(msg);
+    msg = Message::Move { x: 1, y: 2 };
+    match_msg(msg);
+    msg = Message::Write("lalala".to_string());
+    match_msg(msg);
 }
 
 fn print_coordinates(&(x, y): &(i32, i32)) {
@@ -128,4 +141,29 @@ fn print_coordinates(&(x, y): &(i32, i32)) {
 struct Point {
     x: i32,
     y: i32,
+}
+
+// enum destruct
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+
+fn match_msg(msg: Message) {
+    match msg {
+        Message::Quit => {
+            println!("[[The Quit variant has no data to destructure!]]")
+        }
+        Message::Move { x, y } => {
+            println!(" ... Move in the x direction: [{x}] ... and in the y direction: [{y}] ... ");
+        }
+        Message::Write(text) => {
+            print!("text message: {text} o_O");
+        }
+        Message::ChangeColor(r, g, b) => {
+            println!(" ~ Change the color to red {r}, green {g}, and blue {b} ~ ",)
+        }
+    }
 }
