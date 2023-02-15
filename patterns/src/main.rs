@@ -173,6 +173,27 @@ fn main() {
             println!("Some numbers: {first}, {third}, {fifth}")
         }
     }
+
+    // ignoring unused var by starting name w/ _
+    let _x = 0;
+    let y = 1;
+
+    // will give error because _s is value-binded:
+    // let s = Some(String::from("Hello!"));
+
+    // if let Some(_s) = s {
+    //     println!("found a string over here");
+    // }
+
+    // println!("{:?}", s);
+
+    let s = Some(String::from("hello!"));
+
+    if let Some(_) = s {
+        println!("found over a string over for real this time");
+    }
+
+    println!("{:?}", s);
 }
 
 fn print_coordinates(&(x, y): &(i32, i32)) {
