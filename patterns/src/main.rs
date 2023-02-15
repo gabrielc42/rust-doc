@@ -233,6 +233,16 @@ fn main() {
         4 | 5 | 6 if y => println!("yes"),
         _ => println!("no"),
     }
+
+    // @ bindings
+    let mut msg = MessageTwo::Hello { id: 5 };
+    match_msg_two(msg);
+
+    msg = MessageTwo::Hello { id: 2 };
+    match_msg_two(msg);
+
+    msg = MessageTwo::Hello { id: 10 };
+    match_msg_two(msg);
 }
 
 fn print_coordinates(&(x, y): &(i32, i32)) {
@@ -300,5 +310,22 @@ fn match_guard(num: Option<i32>) {
         Some(x) if x % 2 == 0 => println!("The number {} is even", x),
         Some(x) => println!("The number {} is odd", x),
         None => (),
+    }
+}
+
+// @ bindings
+enum MessageTwo {
+    Hello { id: i32 },
+}
+
+fn match_msg_two(msg: MessageTwo) {
+    match msg {
+        MessageTwo::Hello {
+            id: id_variable @ 3..=7,
+        } => println!("Found an id in range: {} (￣个￣)", id_variable),
+        MessageTwo::Hello { id: 10..=12 } => {
+            println!("Found an id in another range  ٩(｡•́‿•̀｡)۶")
+        }
+        MessageTwo::Hello { id } => println!("Found some other id: {} °˖✧◝(⁰▿⁰)◜✧˖°", id), // id: 2 for example
     }
 }
