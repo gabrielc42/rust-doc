@@ -122,8 +122,7 @@ fn main() {
     }
 
     // enums
-    // let mut msg = Message::ChangeColor(0, 160, 255);
-    let msg = Message::ChangeColor(Color::Hsv(0, 160, 255));
+    let mut msg = Message::ChangeColor(Color::Rgb(0, 160, 255));
     match_msg(msg);
     msg = Message::Quit;
     match_msg(msg);
@@ -133,6 +132,9 @@ fn main() {
     match_msg(msg);
 
     // nested structs and enums
+
+    msg = Message::ChangeColor(Color::Hsv(0, 160, 255));
+
     match msg {
         Message::ChangeColor(Color::Rgb(r, g, b)) => {
             println!("Change color to red {r}, green{g}, and blue{b}");
@@ -141,6 +143,35 @@ fn main() {
             println!("Change color to hue {h}, saturation {s}, value {v}")
         }
         _ => (),
+    }
+
+    // destructuring structs and tuples
+    let ((feet, inches), Point { x, y }) = ((3, 10), Point { x: 3, y: -10 });
+
+    // ignoring an entire value w/ _
+    foo(3, 4);
+
+    // ignoring parts of a value w/ a nested _
+
+    let mut setting_value = Some(5);
+    let new_setting_value = Some(10);
+
+    match (setting_value, new_setting_value) {
+        (Some(_), Some(_)) => {
+            println!("Can't overwrite an existing customized value (╯•﹏•╰)");
+        }
+        _ => {
+            setting_value = new_setting_value;
+        }
+    }
+    println!("setting is {:?}", setting_value);
+
+    let numbers = (4, 36, 823, 12, 0, 2);
+
+    match numbers {
+        (first, _, third, _, fifth, _) => {
+            println!("Some numbers: {first}, {third}, {fifth}")
+        }
     }
 }
 
@@ -177,10 +208,18 @@ fn match_msg(msg: Message) {
             println!(" ... Move in the x direction: [{x}] ... and in the y direction: [{y}] ... ");
         }
         Message::Write(text) => {
-            print!("text message: {text} o_O");
+            print!("text message: {text} o_O \n");
         }
-        Message::ChangeColor(r, g, b) => {
+        Message::ChangeColor(Color::Rgb(r, g, b)) => {
             println!(" ~ Change the color to red {r}, green {g}, and blue {b} ~ ",)
         }
+        Message::ChangeColor(Color::Hsv(h, s, v)) => {
+            println!(" ( Change the color to hue {h}, saturation {s}, value {v} ) ",)
+        }
     }
+}
+
+// ignoring an entire value w/ _
+fn foo(_: i32, y: i32) {
+    println!("Y parameter: {}", y);
 }
