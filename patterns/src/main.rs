@@ -195,9 +195,8 @@ fn main() {
 
     println!("{:?}", s);
 
-    //ignoring remaining parts of a value w/ ..
-
-    match origin {
+    // ignoring remaining parts of a value w/ ..
+    match Origin {
         PointTwo { x, .. } => println!("x is {}", x),
     }
 
@@ -206,6 +205,33 @@ fn main() {
             // (.., second, ..) doesn't compile, '..' only once!
             println!("Some numbers from earlier: {first}, {last}");
         }
+    }
+
+    // extra conditionals w/ match guards
+
+    let mut num = Some(4);
+    match_guard(num);
+    num = Some(5);
+    match_guard(num);
+
+    let x = Some(5);
+    let y = 10;
+
+    match x {
+        Some(50) => println!("Got 50! （・⊝・∞）"),
+        Some(n) if n == y => println!("Matched, n = {n}"),
+        _ => println!("Default case, x = {:?}", x),
+    }
+
+    println!("at the end: x = {:?}, y = {y} ... ｡^‿^｡", x);
+
+    let x = 4;
+    let y = false;
+
+    match x {
+        // (4 | 5 | 6) if y => ... rather than 4 | 5 | (6 if y) => ...
+        4 | 5 | 6 if y => println!("yes"),
+        _ => println!("no"),
     }
 }
 
@@ -265,4 +291,14 @@ struct PointTwo {
     z: i32,
 }
 
-const origin: PointTwo = PointTwo { x: 0, y: 0, z: 0 };
+const Origin: PointTwo = PointTwo { x: 0, y: 0, z: 0 };
+
+// extra conditionals w/ match guards
+
+fn match_guard(num: Option<i32>) {
+    match num {
+        Some(x) if x % 2 == 0 => println!("The number {} is even", x),
+        Some(x) => println!("The number {} is odd", x),
+        None => (),
+    }
+}
