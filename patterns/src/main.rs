@@ -194,6 +194,19 @@ fn main() {
     }
 
     println!("{:?}", s);
+
+    //ignoring remaining parts of a value w/ ..
+
+    match origin {
+        PointTwo { x, .. } => println!("x is {}", x),
+    }
+
+    match numbers {
+        (first, .., last) => {
+            // (.., second, ..) doesn't compile, '..' only once!
+            println!("Some numbers from earlier: {first}, {last}");
+        }
+    }
 }
 
 fn print_coordinates(&(x, y): &(i32, i32)) {
@@ -232,10 +245,10 @@ fn match_msg(msg: Message) {
             print!("text message: {text} o_O \n");
         }
         Message::ChangeColor(Color::Rgb(r, g, b)) => {
-            println!(" ~ Change the color to red {r}, green {g}, and blue {b} ~ ",)
+            println!(" ~ Change the color to red {r}, green {g}, and blue {b} ~ ",);
         }
         Message::ChangeColor(Color::Hsv(h, s, v)) => {
-            println!(" ( Change the color to hue {h}, saturation {s}, value {v} ) ",)
+            println!(" ( Change the color to hue {h}, saturation {s}, value {v} ) ",);
         }
     }
 }
@@ -244,3 +257,12 @@ fn match_msg(msg: Message) {
 fn foo(_: i32, y: i32) {
     println!("Y parameter: {}", y);
 }
+
+// ignoring remaining parts of a value w/ ..
+struct PointTwo {
+    x: i32,
+    y: i32,
+    z: i32,
+}
+
+const origin: PointTwo = PointTwo { x: 0, y: 0, z: 0 };
