@@ -30,5 +30,13 @@ fn main() {
         println!("r1 is: {}", *r1);
         println!("r2 is: {}", *r2);
     }
+
+    // with raw pointers, we can create a mutable pointer and an immutable pointer to the
+    // same location and change data through the mutable pointer
+    // potentially creating a data race
+
+    // why raw pointers ever?
+    // building up safe abstractions that borrow checker doesn't understand
+    // or, calling an unsafe function or method:
     
 }
