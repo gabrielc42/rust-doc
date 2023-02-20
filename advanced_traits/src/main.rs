@@ -14,7 +14,7 @@ fn main() {
 
     // default generic type parameters and operator overloading
     // overloading + operator to add two Point instances together
-    use std::ops::Add;
+    use std::ops::Add as AddGeneric;
 
     #[derive(Debug, Copy, Clone, PartialEq)]
     struct Point {
@@ -22,7 +22,7 @@ fn main() {
         y: i32,
     }
 
-    impl Add for Point {
+    impl AddGeneric for Point {
         type Output = Point;
 
         fn add(self, other: Point) -> Point {
@@ -38,10 +38,46 @@ fn main() {
         Point { x: 3, y: 3 }
     );
 
-    // default gerneric type within Add
+    // default generic type within Add
     trait Add<Rhs = Self> {
         type Output;
 
         fn add(self, rhs: Rhs) -> Self::Output;
     }
+
+    // fully qualified syntax for disambiguation: calling methods with same name
+    trait Pilot {
+        fn fly(&self);
+    }
+
+    trait Wizard {
+        fn fly(&self);
+    }
+
+    struct Human;
+
+    impl Pilot for Human {
+        fn fly(&self) {
+            println!("This is your captain speaking 📞🐼")
+        }
+    }
+
+    impl Wizard for Human {
+        fn fly(&self) {
+            println!("Up! ⬆️");
+        }
+    }
+
+    impl Human {
+        fn fly(&self) {
+            println!("*waving arms furiously* 🐣")
+        }
+    }
+
+    let person = Human;
+    person.fly();
+
+    Pilot::fly(&person);
+    Wizard::fly(&person);
+    person.fly();
 }
