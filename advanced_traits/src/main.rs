@@ -1,5 +1,7 @@
 #![allow(unused)]
 
+use std::fmt;
+
 fn main() {
     println!("Hello, world of traits!");
 
@@ -102,4 +104,34 @@ fn main() {
     // trait w/ associated function and a type with
     // an associated function of the same name that also implements the trait
     println!("A baby dog is called a {}", Dog::baby_name());
+
+    // rust won't know which impl, because no self parameter and could be other types that impl Animal trait
+    // println!("A baby dog is called a {}", Animal::baby_name());
+
+    // fully qualified syntax
+    println!("A baby dog is called a {}", <Dog as Animal>::baby_name());
+    // <Type as Trait>::function(receiver_if_method, next_arg, ...);
+
+    // supertraits to require one trait's functionality within another trait
+    trait OutlinePrint: fmt::Display {
+        fn outline_print(&self) {
+            let output = self.to_string();
+            let len = output.len();
+            println!("{}", "*".repeat(len + 4));
+            println!("*{}*", " ".repeat(len + 2));
+            println!("* {} *", output);
+            println!("*{}*", " ".repeat(len + 2));
+            println!("{}", "*".repeat(len + 4));
+        }
+    }
+
+    // if no ::Display on fmt, we'd get an error 'required but not implemented'
+
+    impl fmt::Display for Point {
+        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+            write!(f, "({}, {})", self.x, self.y)
+        }
+    }
+
+    // newtype pattern to implement external traits on external types
 }
