@@ -132,7 +132,22 @@ fn main() {
 
     unsafe impl Foo for i32 {
         // method implementations go here
+        // by using unsafe impl we are promising we'll uphold the
+        // invariants the compiler cannot verify
     }
 
     fn stuff() {}
+
+    // example: Send and Sync (concurrency)
+    // if we implement a type that contains a type that is not Send or Sync, such as raw pointers
+    // and want to mark it as Send or Sync, we must use unsafe
+
+    // accessing fields of a union
+    // union similar to structs! only one decalred field is used in
+    // a particular instance at one time (primarily used to interface with unions in C code)
+
+    // when to use unsafe?
+    // using unsafe to take one of the five actions discussed isn't wrong or frowned upon
+    // although, compiler cannot help uphold memory safety
+    // when you have a reason!
 }
