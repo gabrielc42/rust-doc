@@ -80,4 +80,26 @@ fn main() {
     Pilot::fly(&person);
     Wizard::fly(&person);
     person.fly();
+
+    trait Animal {
+        fn baby_name() -> String;
+    }
+
+    struct Dog;
+
+    impl Dog {
+        fn baby_name() -> String {
+            String::from("Spot")
+        }
+    }
+
+    impl Animal for Dog {
+        fn baby_name() -> String {
+            String::from("puppy")
+        }
+    }
+
+    // trait w/ associated function and a type with
+    // an associated function of the same name that also implements the trait
+    println!("A baby dog is called a {}", Dog::baby_name());
 }
