@@ -3,7 +3,7 @@
 use std::fmt;
 
 fn main() {
-    println!("Hello, world of traits!");
+    println!("Hello, world of traits! 😃");
 
     // specifying placeholder types in trait defintions w/ assoicated types
     pub trait Iterator {
