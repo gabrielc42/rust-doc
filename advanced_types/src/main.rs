@@ -94,7 +94,8 @@ fn main() {
 
         let guess: u32 = match guess.trim().parse() {
             Ok(num) => num,
-            Err(_) => continue,
+            Err(_) => continue, // has a ! value,
+                                // allowing match to return a u32 and a continue
         };
 
         println!("You guessed: {guess}");
@@ -110,4 +111,21 @@ fn main() {
             }
         }
     }
+
+    // panic! has the type !
+    // impl<T> Option<T> {
+    //     pub fn unwrap(self) -> T {
+    //         match self {
+    //             Some(val) => val,
+    //             None => panic("called `Option::unwrap()` on a `None` value"),
+    //         }
+    //     }
+    // }
+
+    // as does loop
+    // print!("4ever");
+
+    // loop {
+    //     print!("and evaaaa!");
+    // }
 }
