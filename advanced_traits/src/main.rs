@@ -134,4 +134,17 @@ fn main() {
     }
 
     // newtype pattern to implement external traits on external types
+
+    struct Wrapper(Vec<String>);
+
+    impl fmt::Display for Wrapper {
+        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+            write!(f, "[{}]", self.0.join(", "))
+        }
+    }
+
+    let w = Wrapper(vec![String::from("hello"), String::from("world")]);
+    println!("w = {}", w);
+    // above doesn't have all Vec<T> methods on Wrapper
+    // would have to impl Deref trait on Wrapper to return inner type
 }
