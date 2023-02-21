@@ -128,4 +128,37 @@ fn main() {
     // loop {
     //     print!("and evaaaa!");
     // }
+
+    // dynamically sized types and the sized trait
+
+    let s1: &str = "Hello there!"; //  str 12 bytes
+    let s2: &str = "How's it going?"; // str 15 bytes
+                                      // therefore, Rust needs to know how much memory to allocate for the values of a particular type
+                                      // and all values of a type must use the same amount in memory
+                                      // so it needs to be referenced
+                                      // this is why is isn't possible to
+                                      // create a variable holding a dynamically sized type
+
+    // golden rule: always put values of dynamically sized types behind a pointer of some kind
+    // Box<str>, Rc<str>, etc.
+    // every trait is a dynamically sized type we can refer to by using name of trait
+    // traits as trait objects:
+    // &dyn Trait, Box<dyn Trait>, Rc<dyn Trait>, ...
+
+    // Sized trait
+    fn generically_generic<T>(t: T) {
+        // ...
+    }
+
+    // is actually:
+    fn is_actually_generic<T: Sized>(t: T) {
+        // ...
+    }
+
+    // generic functions will work only on types that
+    // have a known size at compile time
+    // T may or may not be Sized
+    fn generic<T: ?Sized>(t: &T) {
+        // ...
+    }
 }
