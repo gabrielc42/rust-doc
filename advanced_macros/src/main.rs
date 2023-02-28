@@ -6,3 +6,16 @@ fn main() {
     // 2. Attribute-like: define custom attributes usable on any item
     // 3. Function-like: look like function calls but operate on the tokens specified as their argument
 }
+
+#[macro_export]
+macro_rules! vec {
+    ( $( $x:expr ),* ) => {
+        {
+            let mut temp_vec = Vec::new();
+            $(
+                temp_vec.push($x);
+            )*
+            temp_vec
+        }
+    };
+}
