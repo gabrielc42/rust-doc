@@ -27,3 +27,8 @@ macro_rules! vec {
 //     temp_vec.push(3);
 //     temp_vec
 // }
+
+use proc_macro;
+
+#[some_attribute]
+pub fn some_name(input: TokenStream) -> TokenStream {}
