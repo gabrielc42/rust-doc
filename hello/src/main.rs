@@ -13,12 +13,15 @@ fn main() {
         handle_connection(stream);
     }
 }
+// ANCHOR: here
 // --snip--
 
 fn handle_connection(mut stream: TcpStream) {
     // --snip--
+    // ANCHOR_END: here
     let buf_reader = BufReader::new(&mut stream);
     let request_line = buf_reader.lines().next().unwrap().unwrap();
+    // ANCHOR: here
 
     let (status_line, filename) = if request_line == "GET / HTTP/1.1" {
         ("HTTP/1.1 200 OK", "hello.html")
@@ -33,3 +36,4 @@ fn handle_connection(mut stream: TcpStream) {
 
     stream.write_all(response.as_bytes()).unwrap();
 }
+// ANCHOR_END: here
