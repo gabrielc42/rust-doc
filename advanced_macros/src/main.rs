@@ -1,9 +1,9 @@
 //custom derive macro
-use hello_macro::HelloMacro;
-use hello_macro_derive::HelloMacro;
+// use hello_macro::HelloMacro;
+// use hello_macro_derive::HelloMacro;
 
-#[derive(HelloMacro)]
-struct Pancakes;
+// #[derive(HelloMacro)]
+// struct Pancakes;
 
 fn main() {
     println!("Hello, world of macros! ❗❓❔❕");
@@ -14,10 +14,10 @@ fn main() {
     // 3. Function-like: look like function calls but operate on the tokens specified as their argument
 
     // custom derive macro
-    Pancakes::hello_macro();
+    // Pancakes::hello_macro();
 
     // function-like macros
-    let sql = sql!(SELECT * FROM posts WHERE id=1);
+    // let sql = sql!(SELECT * FROM posts WHERE id=1);
 
     // #[proc_macro]
     // pub fn sql(input: TokenStream) -> TokenStream {
